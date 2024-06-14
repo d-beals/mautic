@@ -1,9 +1,13 @@
 version: '3.3'
 services:
   mautic:
-    image: mautic/mautic:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8081:80"
+    volumes:
+      - .:/var/www/html
     environment:
       MAUTIC_DB_HOST: db
       MAUTIC_DB_NAME: mautic
@@ -11,6 +15,8 @@ services:
       MAUTIC_DB_PASSWORD: mauticpassword
     depends_on:
       - db
+    networks:
+      - coolify
 
   db:
     image: mysql:5.7
@@ -19,4 +25,9 @@ services:
       MYSQL_DATABASE: mautic
       MYSQL_USER: mautic
       MYSQL_PASSWORD: mauticpassword
+    networks:
+      - coolify
 
+networks:
+  coolify:
+    driver: bridge
