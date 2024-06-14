@@ -3,7 +3,7 @@ services:
   mautic:
     image: mautic/mautic:latest
     ports:
-      - "8080:80"
+      - "8081:80"
     environment:
       MAUTIC_DB_HOST: db
       MAUTIC_DB_NAME: mautic
